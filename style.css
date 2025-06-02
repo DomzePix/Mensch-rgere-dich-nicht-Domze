@@ -1,12 +1,12 @@
 body {
   font-family: sans-serif;
   text-align: center;
-  background: #e9ecef;
+  background: #f5f5f5;
 }
 h1 {
-  margin: 20px 0;
+  margin: 20px 0 10px;
 }
-.controls {
+.setup {
   margin-bottom: 10px;
 }
 .board {
@@ -20,34 +20,47 @@ h1 {
 .cell {
   width: 40px;
   height: 40px;
-  background: white;
-  border: 1px solid #aaa;
+  border: 1px solid #bbb;
   position: relative;
 }
-.home { background: #ccc; }
+.home-red { background: #faa; }
+.home-green { background: #afa; }
+.home-blue { background: #aaf; }
+.home-yellow { background: #ffb; }
 .path { background: #eee; }
-.goal { background: #ffd; }
-.piece {
-  width: 32px;
-  height: 32px;
+.goal { background: #ddd; }
+.goal-red { background: #fdd; }
+.goal-green { background: #dfd; }
+.goal-blue { background: #ddf; }
+.goal-yellow { background: #ffd; }
+
+.figure {
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   position: absolute;
-  top: 4px;
-  left: 4px;
+  top: 5px;
+  left: 5px;
+  cursor: pointer;
 }
 .red { background: red; }
 .green { background: green; }
 .blue { background: blue; }
-.yellow { background: gold; }
-.dice-container {
+.yellow { background: goldenrod; }
+
+.dice-panel {
   margin-top: 20px;
 }
 .dice {
-  display: inline-block;
   font-size: 48px;
-  margin: 0 10px;
 }
-#dice-sum {
-  font-weight: bold;
+#dice-output, #turn-indicator {
   margin-top: 10px;
+  font-weight: bold;
+}
+.winner {
+  font-size: 24px;
+  font-weight: bold;
+  color: darkgreen;
+  margin-top: 20px;
 }

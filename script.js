@@ -1,53 +1,69 @@
+let board = [];
 let players = [];
 let currentPlayer = 0;
 
-function startGame() {
-  const board = document.getElementById("board");
-  board.innerHTML = "";
-  for (let i = 0; i < 121; i++) {
-    const div = document.createElement("div");
-    div.classList.add("cell");
-    div.id = "cell-" + i;
-    board.appendChild(div);
-  }
+function createBoard() {
+  const boardDiv = document.getElementById("board");
+  boardDiv.innerHTML = "";
+  board = [];
 
+  for (let i = 0; i < 121; i++) {
+    const cell = document.createElement("div");
+    cell.classList.add("cell");
+
+    if ([0, 10, 110, 120].includes(i)) {
+      cell.classList.add("home");
+    } else if (i >= 44 && i <= 76 && i % 11 === 5) {
+      cell.classList.add("path");
+    } else {
+      cell.classList.add("goal");
+    }
+
+    cell.id = "cell-" + i;
+    board.push(cell);
+    boardDiv.appendChild(cell);
+  }
+}
+
+function startGame() {
   const count = parseInt(document.getElementById("player-count").value);
   players = Array.from({ length: count }, (_, i) => ({
     id: i,
     color: ["red", "green", "blue", "yellow"][i],
-    position: 10 * (i + 1)
+    pos: 0,
+    home: 11 * i,
   }));
   currentPlayer = 0;
+  createBoard();
   drawPieces();
 }
 
 function drawPieces() {
   document.querySelectorAll(".piece").forEach(p => p.remove());
   players.forEach(p => {
-    const div = document.createElement("div");
-    div.className = "piece " + p.color;
-    const cell = document.getElementById("cell-" + p.position);
-    if (cell) cell.appendChild(div);
+    const piece = document.createElement("div");
+    piece.className = "piece " + p.color;
+    const pos = p.home + (p.pos % 10);
+    const cell = document.getElementById("cell-" + pos);
+    if (cell) cell.appendChild(piece);
   });
 }
 
 function rollDice() {
-  const dice1 = Math.floor(Math.random() * 6) + 1;
-  const dice2 = Math.floor(Math.random() * 6) + 1;
-  document.getElementById("dice1").innerText = getDiceSymbol(dice1);
-  document.getElementById("dice2").innerText = getDiceSymbol(dice2);
-  document.getElementById("dice-total").innerText = "Summe: " + (dice1 + dice2);
-  movePlayer(dice1 + dice2);
+  const d1 = Math.floor(Math.random() * 6) + 1;
+  const d2 = Math.floor(Math.random() * 6) + 1;
+  document.getElementById("dice1").innerText = getDiceSymbol(d1);
+  document.getElementById("dice2").innerText = getDiceSymbol(d2);
+  document.getElementById("dice-sum").innerText = "Summe: " + (d1 + d2);
+  movePlayer(d1 + d2);
 }
 
 function getDiceSymbol(num) {
-  const symbols = ["⚀", "⚁", "⚂", "⚃", "⚄", "⚅"];
-  return symbols[num - 1];
+  return ["⚀", "⚁", "⚂", "⚃", "⚄", "⚅"][num - 1];
 }
 
 function movePlayer(steps) {
-  let player = players[currentPlayer];
-  player.position = (player.position + steps) % 121;
+  players[currentPlayer].pos += steps;
   drawPieces();
   currentPlayer = (currentPlayer + 1) % players.length;
 }

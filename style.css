@@ -1,0 +1,49 @@
+body {
+  font-family: sans-serif;
+  text-align: center;
+  background: #f0f0f0;
+}
+h1 {
+  margin-top: 20px;
+}
+.controls {
+  margin: 10px;
+}
+#board {
+  display: grid;
+  grid-template-columns: repeat(11, 40px);
+  grid-template-rows: repeat(11, 40px);
+  margin: 20px auto;
+  width: 440px;
+  height: 440px;
+  background: white;
+  border: 2px solid #333;
+}
+.cell {
+  border: 1px solid #ccc;
+  width: 40px;
+  height: 40px;
+}
+.piece {
+  width: 30px;
+  height: 30px;
+  margin: 5px auto;
+  border-radius: 50%;
+}
+.red { background: red; }
+.green { background: green; }
+.blue { background: blue; }
+.yellow { background: gold; }
+
+.dice-container {
+  margin-top: 20px;
+}
+.dice {
+  font-size: 48px;
+  display: inline-block;
+  margin: 0 10px;
+}
+#dice-total {
+  margin-top: 10px;
+  font-weight: bold;
+}
